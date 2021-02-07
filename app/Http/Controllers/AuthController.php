@@ -22,36 +22,21 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
-        // if (Auth::attempt($request->only('email', 'password'))) {
-        //     $user = Auth::user();
-
-        //     $token = $user->createToken('admin')->accessToken;
-
-        //     return [
-        //         'token' => $token,
-        //     ];
-        // }
         if (Auth::attempt($request->only('email', 'password'))) {
             $user = Auth::user();
 
             $token = $user->createToken('admin')->accessToken;
-            $cookie = cookie('jwt',$token,3600);
-            return response([
+
+            return [
                 'token' => $token,
-            ])->withCookie($cookie);
+            ];
         }
+
         return response([
             'error' => 'Invalid Credentials!',
         ], Response::HTTP_UNAUTHORIZED);
     }
 
-    public function logout(){
-        $cookie = CookieCache::forget('jwt');
-        return response([
-                'message' => 'success'
-            ])->withCookie($cookie);
-
-    }
     /**
      * @OA\Post(
      *   path="/register",

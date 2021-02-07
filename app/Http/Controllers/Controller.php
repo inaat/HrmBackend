@@ -14,16 +14,16 @@ class Controller extends BaseController
     /**
      * @OA\Info(
      *      version="1.0.0",
-     *      title="Hrm Documentation",
-     *      description="Hrm OpenApi description",
+     *      title="Admin Documentation",
+     *      description="Admin OpenApi description",
      *      @OA\Contact(
-     *          email="inayatullahkks@gmail.com"
+     *          email="antonio@gmail.com"
      *      ),
      * )
      *
      * @OA\Server(
      *      url=L5_SWAGGER_CONST_HOST,
-     *      description="Hrm API Server"
+     *      description="Admin API Server"
      * )
      *
      * @OA\SecurityScheme(

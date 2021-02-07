@@ -22,9 +22,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        \Gate::authorize('view', 'products');
+        // \Gate::authorize('view', 'products');
 
-        $products = Product::paginate();
+        $products = Product::get();
 
         return ProductResource::collection($products);
     }
