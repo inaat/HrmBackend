@@ -20,6 +20,7 @@ Route::apiResource('products', 'ProductController');
 Route::apiResource('country', 'CountryController');
 Route::apiResource('city','CityController');
 Route::apiResource('religion','ReligionController');
+Route::apiResource('evaluation_competence','Evaluation_competenceController');
 
 
 
