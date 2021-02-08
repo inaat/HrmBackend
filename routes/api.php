@@ -21,8 +21,9 @@ Route::apiResource('country', 'CountryController');
 Route::apiResource('city','CityController');
 Route::apiResource('religion','ReligionController');
 Route::apiResource('evaluation_competence','Evaluation_competenceController');
-
-
+Route::apiResource('educationtrainingtype','Education_Training_TypeController');
+Route::apiResource('documenttype','DocumentTypeController');
+Route::apiResource('beneficianytype','BeneficianyTypeController');
 
 Route::group(['middleware' => 'auth:api'], function () {
     Route::get('chart', 'DashboardController@chart');
