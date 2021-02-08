@@ -33,18 +33,18 @@ class CityController extends Controller
     {
         // \Gate::authorize('edit', 'country');
 
-        $Country = City::find($id);
-        $Country->update($request->only('country_id','city_name_eng','city_name_arab','user_id','region','is_capital','ticket_value'));
+        $City = City::find($id);
+        $City->update($request->only('country_id','city_name_eng','city_name_arab','user_id','region','is_capital','ticket_value'));
 
-        return response($Country, Response::HTTP_ACCEPTED);
+        return response($City, Response::HTTP_ACCEPTED);
     }
 
     public function destroy($id)
     {
         // \Gate::authorize('edit', 'country');
 
-        $country=City::destroy($id);
+        $City=City::destroy($id);
 
-        return response($country, Response::HTTP_ACCEPTED);
+        return response($City, Response::HTTP_ACCEPTED);
     }
 }

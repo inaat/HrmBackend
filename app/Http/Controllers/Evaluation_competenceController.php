@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Evaluation_competenc;
+use App\CompetenciesEvaluation;
 use Illuminate\Http\Request;
 use App\Http\Resources\Evaluation_competenceResource;
+use Symfony\Component\HttpFoundation\Response;
 
 
 class Evaluation_competenceController extends Controller
@@ -15,8 +16,8 @@ class Evaluation_competenceController extends Controller
      */
     public function index()
     {
-        $Evaluation = Evaluation_competenc::get();
-        return Evaluation_competenceResource::collection($Evaluation);
+        $Evaluation = CompetenciesEvaluation::get();
+       return Evaluation_competenceResource::collection($Evaluation);
     }
 
     /**
@@ -37,7 +38,9 @@ class Evaluation_competenceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $Evaluation = CompetenciesEvaluation::create($request->only('user_by','evaluation_desc_eng','evaluation_desc_arab','evaluation_cycle','max_mark'));
+
+        return response($Evaluation, Response::HTTP_CREATED);
     }
 
     /**
@@ -48,7 +51,7 @@ class Evaluation_competenceController extends Controller
      */
     public function show($id)
     {
-        //
+        return new Evaluation_competenceResource(CompetenciesEvaluation::find($id));
     }
 
     /**
@@ -71,7 +74,10 @@ class Evaluation_competenceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $Evaluation = CompetenciesEvaluation::find($id);
+        $Evaluation->update($request->only('user_by','evaluation_desc_eng','evaluation_desc_arab','evaluation_cycle','max_mark'));
+
+        return response($Evaluation, Response::HTTP_ACCEPTED);
     }
 
     /**
@@ -82,6 +88,8 @@ class Evaluation_competenceController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $Evaluation=CompetenciesEvaluation::destroy($id);
+
+        return response($Evaluation, Response::HTTP_ACCEPTED);
     }
 }

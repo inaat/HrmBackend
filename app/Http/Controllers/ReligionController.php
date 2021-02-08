@@ -34,18 +34,18 @@ class ReligionController extends Controller
     {
         // \Gate::authorize('edit', 'country');
 
-        $Country = Religion::find($id);
-        $Country->update($request->only('user_by','religion_name_eng','religion_name_arab'));
+        $Religion = Religion::find($id);
+        $Religion->update($request->only('user_by','religion_name_eng','religion_name_arab'));
 
-        return response($Country, Response::HTTP_ACCEPTED);
+        return response($Religion, Response::HTTP_ACCEPTED);
     }
     
     public function destroy($id)
     {
         // \Gate::authorize('edit', 'country');
 
-        $country=Religion::destroy($id);
+        $Religion=Religion::destroy($id);
 
-        return response($country, Response::HTTP_ACCEPTED);
+        return response($Religion, Response::HTTP_ACCEPTED);
     }
 }
