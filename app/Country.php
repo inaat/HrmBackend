@@ -3,7 +3,6 @@
 namespace App;
 use App\Http\Requests\ProductCreateRequest;
 use App\Http\Resources\CountryResource;
-use App\Country;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;

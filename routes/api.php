@@ -18,6 +18,9 @@ Route::post('login', 'AuthController@login');
 Route::post('register', 'AuthController@register');
 Route::apiResource('products', 'ProductController');
 Route::apiResource('country', 'CountryController');
+Route::apiResource('city','CityController');
+Route::apiResource('religion','ReligionController');
+
 
 
 Route::group(['middleware' => 'auth:api'], function () {
