@@ -24,6 +24,19 @@ Route::apiResource('evaluation_competence','Evaluation_competenceController');
 Route::apiResource('educationtrainingtype','Education_Training_TypeController');
 Route::apiResource('documenttype','DocumentTypeController');
 Route::apiResource('beneficianytype','BeneficianyTypeController');
+Route::apiResource('leavevacationtype','LeaveVacationTypeController');
+Route::apiResource('positiondesignation','PositionDesisgnationController');
+Route::apiResource('sponsor','SponsorController');
+Route::apiResource('earningbenefit','EarningsBenefitController');
+Route::apiResource('deduction','DeductionController');
+Route::apiResource('currency','CurrencyController');
+Route::apiResource('section','SectionController');
+Route::apiResource('percentage','PercentageController');
+Route::apiResource('evaluationtype','EvaluationTypeController');
+Route::apiResource('companyschedule','CompanyScheduleController');
+Route::apiResource('gosisubscription','GosiSubscriptionController');
+
+
 
 Route::group(['middleware' => 'auth:api'], function () {
     Route::get('chart', 'DashboardController@chart');

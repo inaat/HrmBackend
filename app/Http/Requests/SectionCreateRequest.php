@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class Beneficiany_TypeCreateRequest extends FormRequest
+class SectionCreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class Beneficiany_TypeCreateRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -25,8 +25,9 @@ class Beneficiany_TypeCreateRequest extends FormRequest
     {
         return [
             'user_by'=>'required',
-            // 'beneficiany_desc_eng'=>'required',
-            // 'beneficiany_desc_arab'=>'required',
+            // 'section_desc_eng'=>'required',
+            // 'section_desc_arab'=>'required',
+            // 'exchange_rate'=>'required',
         ];
     }
 }
