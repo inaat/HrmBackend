@@ -37,4 +37,10 @@ use Illuminate\Database\Eloquent\Model;
 class Country extends Model
 {
      protected $guarded = ['id'];
+
+
+    public function countrycities()
+    {
+        return $this->hasMany(\App\City::class);
+    }
 }

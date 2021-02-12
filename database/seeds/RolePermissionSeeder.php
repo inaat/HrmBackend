@@ -42,6 +42,7 @@ class RolePermissionSeeder extends Seeder
             'view_roles',
             'view_products',
             'view_orders',
+            'view_countries',
         ];
 
         foreach ($permissions as $permission) {
