@@ -21,7 +21,7 @@ class CountryController extends Controller
      */
     public function index()
     {
-        \Gate::authorize('view', 'Country');
+        \Gate::authorize('view', 'countries');
 
         $Countries= Country::with(['countrycities'])->get();
 

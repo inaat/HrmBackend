@@ -17,7 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::post('login', 'AuthController@login');
 Route::post('register', 'AuthController@register');
 Route::apiResource('products', 'ProductController');
-Route::apiResource('country', 'CountryController');
 Route::apiResource('city','CityController');
 Route::apiResource('religion','ReligionController');
 Route::apiResource('evaluation_competence','Evaluation_competenceController');
@@ -51,5 +50,7 @@ Route::group(['middleware' => 'auth:api'], function () {
    // Route::apiResource('products', 'ProductController');
     Route::apiResource('orders', 'OrderController')->only('index', 'show');
     Route::apiResource('permissions', 'PermissionController')->only('index');
+    Route::apiResource('country', 'CountryController');
+
 });
 
