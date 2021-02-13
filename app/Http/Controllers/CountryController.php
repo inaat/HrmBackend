@@ -24,15 +24,9 @@ class CountryController extends Controller
      */
     public function index()
     {
-       
-    
-    
-
         \Gate::authorize('view', 'countries');
 
         $Countries= Country::with(['countrycities'])->get();
-
-
         return CountryResource::collection($Countries);
     }
 
@@ -70,10 +64,10 @@ class CountryController extends Controller
      *   )
      * )
      */
-    public function store( CountryCreateRequest $request)
+    public function store(CountryCreateRequest $request)
     {
-         \Gate::authorize('edit', 'countries');
-        $Country = Country::create($request->only('country_name_arab','nationality_arab','country_name_eng','nationality_eng'));
+        \Gate::authorize('edit', 'countries');
+        $Country = Country::create($request->only('country_name_arab', 'nationality_arab', 'country_name_eng', 'nationality_eng'));
         return response($Country, Response::HTTP_CREATED);
     }
 
@@ -100,7 +94,7 @@ class CountryController extends Controller
     {
         \Gate::authorize('edit', 'countries');
         $Country = Country::find($id);
-        $Country->update($request->only('country_name_arab', 'nationality_arab', 'country_name_eng','nationality_eng'));
+        $Country->update($request->only('country_name_arab', 'nationality_arab', 'country_name_eng', 'nationality_eng'));
         return response($Country, Response::HTTP_ACCEPTED);
     }
 
@@ -124,17 +118,17 @@ class CountryController extends Controller
      */
     public function destroy($id)
     {
-         \Gate::authorize('delete', 'countries');
-        $Delete = City::find($id);
-       
-         if(empty($Delete))
-         {
+        \Gate::authorize('delete', 'countries');
+        $Delete = City::where('country_id', $id)->first();
+
+        if (empty($Delete)) {
             $country=Country::destroy($id);
             return response($country, Response::HTTP_ACCEPTED);
-           
-         }
-         else{
-            return response()->json("This Data Can't Be Delete Because Use In Other Place !");
-         }
+        } else {
+            return response()->json([
+          'success' => false,
+          'message' => "This Data Can't Be Delete Because Use In Other Place !"
+        ]);
+        }
     }
 }
