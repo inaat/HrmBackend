@@ -21,7 +21,7 @@ class CreateSponsorsTable extends Migration
             $table->string('sponsor_address')->nullable();
             $table->string('sponsor_telphone_no')->nullable();
             $table->string('contact_person_eng')->nullable();
-            $table->string('contact_person_arab')->Nullable();
+            $table->string('contact_person_arab')->nullable();
             $table->string('sponsor_no')->nullable();
 
             // $table->string('company_id')->nullable();
