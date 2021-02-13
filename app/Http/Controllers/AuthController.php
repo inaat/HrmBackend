@@ -58,4 +58,23 @@ class AuthController extends Controller
 
         return response($user, Response::HTTP_CREATED);
     }
+
+      public function logout(){
+        {
+      if (Auth::user()) {
+        $user = Auth::user()->token();
+        $user->revoke();
+
+        return response()->json([
+          'success' => true,
+          'message' => 'Logout successfully'
+      ]);
+      }else {
+        return response()->json([
+          'success' => false,
+          'message' => 'Unable to Logout'
+        ]);
+      }
+     }
+    }
 }
