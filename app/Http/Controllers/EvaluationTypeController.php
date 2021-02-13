@@ -17,6 +17,7 @@ class EvaluationTypeController extends Controller
      */
     public function index()
     {
+        \Gate::authorize('view', 'evaluation_types');
         $Evaluation= EvaluationType::get();
         return Evaluation_TypeResource::collection($Evaluation);
     }
@@ -39,6 +40,7 @@ class EvaluationTypeController extends Controller
      */
     public function store(Request $request)
     {
+        \Gate::authorize('edit', 'evaluation_types');
         $Evaluation = EvaluationType::create($request->only('user_by','evaluation_type_desc_eng','evaluation_type_desc_arab'));
 
         return response($Evaluation, Response::HTTP_CREATED);
@@ -52,6 +54,7 @@ class EvaluationTypeController extends Controller
      */
     public function show($id)
     {
+        \Gate::authorize('view', 'evaluation_types');
         return new Evaluation_TypeResource(EvaluationType::find($id));
     }
 
@@ -75,6 +78,7 @@ class EvaluationTypeController extends Controller
      */
     public function update(Request $request, $id)
     {
+        \Gate::authorize('edit', 'evaluation_types');
         $Evaluation = EvaluationType::find($id);
         $Evaluation->update($request->only('user_by','evaluation_type_desc_eng','evaluation_type_desc_arab'));
 
@@ -89,6 +93,7 @@ class EvaluationTypeController extends Controller
      */
     public function destroy($id)
     {
+        \Gate::authorize('delete', 'evaluation_types');
         $Evaluation=EvaluationType::destroy($id);
 
         return response($Evaluation, Response::HTTP_ACCEPTED);

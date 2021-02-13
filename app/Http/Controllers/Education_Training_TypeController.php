@@ -17,6 +17,7 @@ class Education_Training_TypeController extends Controller
      */
     public function index()
     {
+        \Gate::authorize('view', 'education_training_types');
         $Education = EducationTrainingType::get();
         return Education_Training_TypeResource::collection($Education);
        
@@ -40,6 +41,7 @@ class Education_Training_TypeController extends Controller
      */
     public function store(Request $request)
     {
+        \Gate::authorize('edit', 'education_training_types');
         $Education = EducationTrainingType::create($request->only('user_by','education_desc_eng','education_desc_arab','education_remark'));
 
         return response($Education, Response::HTTP_CREATED);
@@ -53,6 +55,7 @@ class Education_Training_TypeController extends Controller
      */
     public function show($id)
     {
+        \Gate::authorize('view', 'education_training_types');
         return new Education_Training_TypeResource(EducationTrainingType::find($id));
     }
 
@@ -76,6 +79,7 @@ class Education_Training_TypeController extends Controller
      */
     public function update(Request $request, $id)
     {
+        \Gate::authorize('edit', 'education_training_types');
         $Education = EducationTrainingType::find($id);
         $Education->update($request->only('user_by','education_desc_eng','education_desc_arab','education_remark'));
 
@@ -90,6 +94,7 @@ class Education_Training_TypeController extends Controller
      */
     public function destroy($id)
     {
+        \Gate::authorize('delete', 'education_training_types');
         $Education=EducationTrainingType::destroy($id);
 
         return response($Education, Response::HTTP_ACCEPTED);

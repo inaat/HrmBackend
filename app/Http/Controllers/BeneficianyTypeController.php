@@ -18,6 +18,7 @@ class BeneficianyTypeController extends Controller
      */
     public function index()
     {
+        \Gate::authorize('view', 'beneficiany_types');
         $Beneficiany= BeneficianyType::get();
         return Beneficiany_TypeResource::collection($Beneficiany);
     }
@@ -40,6 +41,7 @@ class BeneficianyTypeController extends Controller
      */
     public function store(Request $request)
     {
+        \Gate::authorize('edit', 'beneficiany_types');
         $Beneficiany= BeneficianyType::create($request->only('user_by','beneficiany_desc_eng','beneficiany_desc_arab'));
 
         return response($Beneficiany, Response::HTTP_CREATED);
@@ -53,6 +55,7 @@ class BeneficianyTypeController extends Controller
      */
     public function show($id)
     {
+        \Gate::authorize('view', 'beneficiany_types');
         return new Beneficiany_TypeResource(BeneficianyType::find($id));
     }
 
@@ -76,6 +79,7 @@ class BeneficianyTypeController extends Controller
      */
     public function update(Request $request, $id)
     {
+        \Gate::authorize('edit', 'beneficiany_types');
         $Beneficiany = BeneficianyType::find($id);
         $Beneficiany->update($request->only('user_by','beneficiany_desc_eng','beneficiany_desc_eng'));
 
@@ -90,6 +94,7 @@ class BeneficianyTypeController extends Controller
      */
     public function destroy($id)
     {
+        \Gate::authorize('delete', 'beneficiany_types');
         $Beneficiany=BeneficianyType::destroy($id);
 
         return response($Beneficiany, Response::HTTP_ACCEPTED);

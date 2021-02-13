@@ -16,6 +16,7 @@ class Evaluation_competenceController extends Controller
      */
     public function index()
     {
+        \Gate::authorize('view', 'competences_evaluations');
         $Evaluation = CompetenciesEvaluation::get();
        return Evaluation_competenceResource::collection($Evaluation);
     }
@@ -38,6 +39,7 @@ class Evaluation_competenceController extends Controller
      */
     public function store(Request $request)
     {
+        \Gate::authorize('edit', 'competences_evaluations');
         $Evaluation = CompetenciesEvaluation::create($request->only('user_by','evaluation_desc_eng','evaluation_desc_arab','evaluation_cycle','max_mark'));
 
         return response($Evaluation, Response::HTTP_CREATED);
@@ -51,6 +53,7 @@ class Evaluation_competenceController extends Controller
      */
     public function show($id)
     {
+        \Gate::authorize('view', 'competences_evaluations');
         return new Evaluation_competenceResource(CompetenciesEvaluation::find($id));
     }
 
@@ -74,6 +77,7 @@ class Evaluation_competenceController extends Controller
      */
     public function update(Request $request, $id)
     {
+        \Gate::authorize('edit', 'competences_evaluations');
         $Evaluation = CompetenciesEvaluation::find($id);
         $Evaluation->update($request->only('user_by','evaluation_desc_eng','evaluation_desc_arab','evaluation_cycle','max_mark'));
 
@@ -88,6 +92,7 @@ class Evaluation_competenceController extends Controller
      */
     public function destroy($id)
     {
+        \Gate::authorize('delete', 'competences_evaluations');
         $Evaluation=CompetenciesEvaluation::destroy($id);
 
         return response($Evaluation, Response::HTTP_ACCEPTED);

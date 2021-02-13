@@ -17,6 +17,7 @@ class PositionDesisgnationController extends Controller
      */
     public function index()
     {
+        \Gate::authorize('view', 'position_designations');
         $Position= PositionDesignation::get();
         return Positions_DesignationResource::collection($Position);
     }
@@ -39,6 +40,7 @@ class PositionDesisgnationController extends Controller
      */
     public function store(Request $request)
     {
+        \Gate::authorize('edit', 'position_designations');
         $Position= PositionDesignation::create($request->only('user_by','designation_desc_eng','designation_desc_arab','level'));
 
         return response($Position, Response::HTTP_CREATED);
@@ -52,6 +54,7 @@ class PositionDesisgnationController extends Controller
      */
     public function show($id)
     {
+        \Gate::authorize('view', 'position_designations');
         return new Positions_DesignationResource(PositionDesignation::find($id));
     }
 
@@ -75,6 +78,7 @@ class PositionDesisgnationController extends Controller
      */
     public function update(Request $request, $id)
     {
+        \Gate::authorize('edit', 'position_designations');
         $Position = PositionDesignation::find($id);
         $Position->update($request->only('user_by','designation_desc_eng','designation_desc_arab','level'));
 
@@ -90,6 +94,7 @@ class PositionDesisgnationController extends Controller
      */
     public function destroy($id)
     {
+        \Gate::authorize('delete', 'position_designations');
         $Position= PositionDesignation::destroy($id);
 
         return response($Position, Response::HTTP_ACCEPTED);

@@ -16,6 +16,7 @@ class EarningsBenefitController extends Controller
      */
     public function index()
     {
+        \Gate::authorize('view', 'earning_benefits');
         $Earn= EarningsBenefit::get();
         return Earnings_BenefitResource ::collection($Earn);
     }
@@ -38,6 +39,7 @@ class EarningsBenefitController extends Controller
      */
     public function store(Request $request)
     {
+        \Gate::authorize('edit', 'earning_benefits');
         $Earn= EarningsBenefit::create($request->only('user_by','benefit_desc_eng','benefit_desc_arab','final_set_flag','money_value_flag','holiday_flag','printable','parentbenefit','modify_flag','gl_id','credit_gl_id','show_in_report','mulfactor','parcent_frsalary','mb' ));
 
         return response($Earn, Response::HTTP_CREATED);
@@ -51,6 +53,7 @@ class EarningsBenefitController extends Controller
      */
     public function show($id)
     {
+        \Gate::authorize('view', 'earning_benefits');
         return new Earnings_BenefitResource(EarningsBenefit::find($id));
     }
 
@@ -74,6 +77,7 @@ class EarningsBenefitController extends Controller
      */
     public function update(Request $request, $id)
     {
+        \Gate::authorize('edit', 'earning_benefits');
         $Earn= EarningsBenefit::find($id);
         $Earn->update($request->only('user_by','benefit_desc_eng','benefit_desc_arab','final_set_flag','money_value_flag','holiday_flag','printable','parentbenefit','modify_flag','gl_id','credit_gl_id','show_in_report','mulfactor','parcent_frsalary','mb' ));
 
@@ -88,6 +92,7 @@ class EarningsBenefitController extends Controller
      */
     public function destroy($id)
     {
+        \Gate::authorize('delete', 'earning_benefits');
         $Earn=EarningsBenefit::destroy($id);
 
         return response($Earn, Response::HTTP_ACCEPTED);

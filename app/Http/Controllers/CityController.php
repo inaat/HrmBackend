@@ -12,18 +12,20 @@ class CityController extends Controller
 {
     public function index()
     {
+        \Gate::authorize('view', 'cities');
         $Cities= city::get();
         return CityResource::collection($Cities);
     }
 
     public function show($id)
     {
+        \Gate::authorize('view', 'cities');
         return new CityResource(City::find($id));
     }
 
     public function store( Request $request)
     {
-        // \Gate::authorize('edit', 'country');
+        \Gate::authorize('edit', 'cities');
         $City= City::create($request->only('country_id','city_name_eng','city_name_arab','user_id','region','is_capital','ticket_value'));
 
         return response($City, Response::HTTP_CREATED);
@@ -31,7 +33,7 @@ class CityController extends Controller
 
     public function update(Request $request, $id)
     {
-        // \Gate::authorize('edit', 'country');
+        \Gate::authorize('edit', 'cities');
 
         $City = City::find($id);
         $City->update($request->only('country_id','city_name_eng','city_name_arab','user_id','region','is_capital','ticket_value'));
@@ -41,7 +43,7 @@ class CityController extends Controller
 
     public function destroy($id)
     {
-        // \Gate::authorize('edit', 'country');
+        \Gate::authorize('delete', 'cities');
 
         $City=City::destroy($id);
 

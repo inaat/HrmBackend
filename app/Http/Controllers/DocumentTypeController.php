@@ -17,6 +17,7 @@ class DocumentTypeController extends Controller
      */
     public function index()
     {
+        \Gate::authorize('view', 'document_types');
         $Document= DocumentType::get();
         return Document_TypeResouce::collection($Document);
     }
@@ -39,6 +40,7 @@ class DocumentTypeController extends Controller
      */
     public function store(Request $request)
     {
+        \Gate::authorize('edit', 'document_types');
         $City= DocumentType::create($request->only('renew_flag','user_by','document_desc_eng','document_desc_arab','co_flog','hijriflag','substituation','days_to_expire' ));
 
         return response($City, Response::HTTP_CREATED);
@@ -52,6 +54,7 @@ class DocumentTypeController extends Controller
      */
     public function show($id)
     {
+        \Gate::authorize('view', 'document_types');
         return new Document_TypeResouce(DocumentType::find($id));
     }
 
@@ -75,6 +78,7 @@ class DocumentTypeController extends Controller
      */
     public function update(Request $request, $id)
     {
+        \Gate::authorize('edit', 'document_types');
         $Education= DocumentType::find($id);
         $Education->update($request->only('renew_flag','user_by','document_desc_eng','document_desc_arab','co_flog','hijriflag','substituation','days_to_expire' ));
 
@@ -89,6 +93,7 @@ class DocumentTypeController extends Controller
      */
     public function destroy($id)
     {
+        \Gate::authorize('delete', 'document_types');
         $Education=DocumentType::destroy($id);
 
         return response($Education, Response::HTTP_ACCEPTED);

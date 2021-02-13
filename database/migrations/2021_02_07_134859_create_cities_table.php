@@ -20,7 +20,7 @@ class CreateCitiesTable extends Migration
             $table->string('city_name_eng')->nullable();
             $table->string('city_name_arab')->nullable();
             $table->string('region')->nullable();
-            //$table->string('country_id');
+            //$table->string('company_id');
             //$table->string('branch_id')->nullable();
             $table->boolean('is_capital')->default(TRUE);
             $table->decimal('ticket_value')->nullable();

@@ -17,6 +17,7 @@ class LeaveVacationTypeController extends Controller
      */
     public function index()
     {
+        \Gate::authorize('view', 'leave_vacation_types');
         $Leave= LeaveVacationType::get();
         return Leave_Vacation_TypeResource::collection($Leave);
     }
@@ -39,6 +40,7 @@ class LeaveVacationTypeController extends Controller
      */
     public function store(Request $request)
     {
+        \Gate::authorize('edit', 'leave_vacation_types');
         $Leave= LeaveVacationType::create($request->only('user_by','status','leave_desc_eng','leave_desc_arab','leave_duration','require_visa','with_pay','operator','settlement','extra_leave_calc','request'));
 
         return response($Leave, Response::HTTP_CREATED);
@@ -52,6 +54,7 @@ class LeaveVacationTypeController extends Controller
      */
     public function show($id)
     {
+        \Gate::authorize('view', 'leave_vacation_types');
         return new Leave_Vacation_TypeResource(LeaveVacationType::find($id));
     }
 
@@ -75,6 +78,7 @@ class LeaveVacationTypeController extends Controller
      */
     public function update(Request $request, $id)
     {
+        \Gate::authorize('edit', 'leave_vacation_types');
        
         $Leave = LeaveVacationType::find($id);
         $Leave->update($request->only('user_by'.'status','leave_desc_eng','leave_desc_arab','leave_duration','require_visa','with_pay','operator','settlement','extra_leave_calc','request'));
@@ -90,6 +94,7 @@ class LeaveVacationTypeController extends Controller
      */
     public function destroy($id)
     {
+        \Gate::authorize('delete', 'leave_vacation_types');
         $Leave=LeaveVacationType::destroy($id);
 
         return response($Leave, Response::HTTP_ACCEPTED);

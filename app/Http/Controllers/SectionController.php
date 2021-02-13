@@ -17,6 +17,7 @@ class SectionController extends Controller
      */
     public function index()
     {
+        \Gate::authorize('view', 'sections');
         $Section = Section::get();
         return SectionResource::collection($Section);
     }
@@ -39,6 +40,7 @@ class SectionController extends Controller
      */
     public function store(Request $request)
     {
+        \Gate::authorize('edit', 'sections');
         $Section = Section::create($request->only('user_by','section_desc_eng','section_desc_arab','exchange_rate'));
 
         return response($Section, Response::HTTP_CREATED);
@@ -52,6 +54,7 @@ class SectionController extends Controller
      */
     public function show($id)
     {
+        \Gate::authorize('view', 'sections');
         return new SectionResource(Section::find($id));
     }
 
@@ -75,6 +78,7 @@ class SectionController extends Controller
      */
     public function update(Request $request, $id)
     {
+        \Gate::authorize('edit', 'sections');
         $Section= Section::find($id);
         $Section->update($request->only('user_by','section_desc_eng','section_desc_arab','exchange_rate'));
 
@@ -89,6 +93,7 @@ class SectionController extends Controller
      */
     public function destroy($id)
     {
+        \Gate::authorize('delete', 'sections');
         $Section = Section::destroy($id);
         return response($Section , Response::HTTP_ACCEPTED);
     }

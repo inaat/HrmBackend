@@ -17,23 +17,13 @@ use Illuminate\Support\Facades\Route;
 Route::post('login', 'AuthController@login');
 Route::post('register', 'AuthController@register');
 Route::apiResource('products', 'ProductController');
-Route::apiResource('city','CityController');
-Route::apiResource('religion','ReligionController');
-Route::apiResource('evaluation_competence','Evaluation_competenceController');
-Route::apiResource('educationtrainingtype','Education_Training_TypeController');
-Route::apiResource('documenttype','DocumentTypeController');
-Route::apiResource('beneficianytype','BeneficianyTypeController');
-Route::apiResource('leavevacationtype','LeaveVacationTypeController');
-Route::apiResource('positiondesignation','PositionDesisgnationController');
-Route::apiResource('sponsor','SponsorController');
-Route::apiResource('earningbenefit','EarningsBenefitController');
-Route::apiResource('deduction','DeductionController');
-Route::apiResource('currency','CurrencyController');
-Route::apiResource('section','SectionController');
-Route::apiResource('percentage','PercentageController');
-Route::apiResource('evaluationtype','EvaluationTypeController');
-Route::apiResource('companyschedule','CompanyScheduleController');
-Route::apiResource('gosisubscription','GosiSubscriptionController');
+
+
+
+
+
+
+
 
 
 
@@ -50,7 +40,25 @@ Route::group(['middleware' => 'auth:api'], function () {
    // Route::apiResource('products', 'ProductController');
     Route::apiResource('orders', 'OrderController')->only('index', 'show');
     Route::apiResource('permissions', 'PermissionController')->only('index');
+   
+    Route::apiResource('companies', 'CompaniesController');
     Route::apiResource('country', 'CountryController');
-
+    Route::apiResource('city','CityController');
+    Route::apiResource('religion','ReligionController');
+    Route::apiResource('evaluation_competence','Evaluation_competenceController');
+    Route::apiResource('educationtrainingtype','Education_Training_TypeController');
+    Route::apiResource('documenttype','DocumentTypeController');
+    Route::apiResource('beneficianytype','BeneficianyTypeController');
+    Route::apiResource('leavevacationtype','LeaveVacationTypeController');
+    Route::apiResource('positiondesignation','PositionDesisgnationController');
+    Route::apiResource('sponsor','SponsorController');
+    Route::apiResource('earningbenefit','EarningsBenefitController');
+    Route::apiResource('deduction','DeductionController');
+    Route::apiResource('currency','CurrencyController');
+    Route::apiResource('section','SectionController');
+    Route::apiResource('percentage','PercentageController');
+    Route::apiResource('evaluationtype','EvaluationTypeController');
+    Route::apiResource('companyschedule','CompanyScheduleController');
+    Route::apiResource('gosisubscription','GosiSubscriptionController');
 });
 

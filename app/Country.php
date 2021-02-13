@@ -43,4 +43,11 @@ class Country extends Model
     {
         return $this->hasMany(\App\City::class);
     }
+    public static function countrydropdown()
+    {
+        $countries =Country::select('id','country_name_eng','country_name_arab')->get();
+        return $countries;
+    }
+ 
+
 }

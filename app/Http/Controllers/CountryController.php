@@ -1,11 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\City;
 use App\Http\Requests\CountryCreateRequest;
 use App\Http\Resources\CountryResource;
 use App\Country;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use PHPUnit\Framework\Constraint\IsEmpty;
 use Symfony\Component\HttpFoundation\Response;
 
 class CountryController extends Controller
@@ -21,9 +24,14 @@ class CountryController extends Controller
      */
     public function index()
     {
+       
+    
+    
+
         \Gate::authorize('view', 'countries');
 
         $Countries= Country::with(['countrycities'])->get();
+
 
         return CountryResource::collection($Countries);
     }
@@ -48,8 +56,7 @@ class CountryController extends Controller
      */
     public function show($id)
     {
-        // \Gate::authorize('view', 'country');
-
+        \Gate::authorize('view', 'countries');
         return new CountryResource(Country::find($id));
     }
 
@@ -65,9 +72,8 @@ class CountryController extends Controller
      */
     public function store( CountryCreateRequest $request)
     {
-        // \Gate::authorize('edit', 'country');
+         \Gate::authorize('edit', 'countries');
         $Country = Country::create($request->only('country_name_arab','nationality_arab','country_name_eng','nationality_eng'));
-
         return response($Country, Response::HTTP_CREATED);
     }
 
@@ -92,12 +98,9 @@ class CountryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // \Gate::authorize('edit', 'country');
-
+        \Gate::authorize('edit', 'countries');
         $Country = Country::find($id);
-        $Country->update($request->only('country_name_arab', 'nationality_arab', 'country_name_eng','nationality_eng'
-));
-
+        $Country->update($request->only('country_name_arab', 'nationality_arab', 'country_name_eng','nationality_eng'));
         return response($Country, Response::HTTP_ACCEPTED);
     }
 
@@ -121,10 +124,17 @@ class CountryController extends Controller
      */
     public function destroy($id)
     {
-        // \Gate::authorize('edit', 'country');
-
-        $country=Country::destroy($id);
-
-        return response($country, Response::HTTP_ACCEPTED);
+         \Gate::authorize('delete', 'countries');
+        $Delete = City::find($id);
+       
+         if(empty($Delete))
+         {
+            $country=Country::destroy($id);
+            return response($country, Response::HTTP_ACCEPTED);
+           
+         }
+         else{
+            return response()->json("This Data Can't Be Delete Because Use In Other Place !");
+         }
     }
 }

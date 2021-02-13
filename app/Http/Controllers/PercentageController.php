@@ -16,6 +16,7 @@ class PercentageController extends Controller
      */
     public function index()
     {
+        \Gate::authorize('view', 'percentages');
         $Percentage = Percentage::get();
         return PercentageResource::collection($Percentage);
     }
@@ -38,6 +39,7 @@ class PercentageController extends Controller
      */
     public function store(Request $request)
     {
+        \Gate::authorize('edit', 'percentages');
         $Percentage = Percentage::create($request->only('user_by','percent_fr','percent_to','percent_desc_eng','percent_desc_arab','percent_value'));
 
         return response($Percentage , Response::HTTP_CREATED);
@@ -51,6 +53,7 @@ class PercentageController extends Controller
      */
     public function show($id)
     {
+        \Gate::authorize('view', 'percentages');
         return new PercentageResource(Percentage::find($id));
     }
 
@@ -74,6 +77,7 @@ class PercentageController extends Controller
      */
     public function update(Request $request, $id)
     {
+        \Gate::authorize('edit', 'percentages');
         $Percentage = Percentage::find($id);
         $Percentage->update($request->only('user_by','percent_fr','percent_to','percent_desc_eng','percent_desc_arab','percent_value'));
 
@@ -88,6 +92,7 @@ class PercentageController extends Controller
      */
     public function destroy($id)
     {
+        \Gate::authorize('delete', 'percentages');
         $Percentage = Percentage::destroy($id);
 
         return response($Percentage, Response::HTTP_ACCEPTED);

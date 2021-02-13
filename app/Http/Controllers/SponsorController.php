@@ -17,6 +17,7 @@ class SponsorController extends Controller
      */
     public function index()
     {
+        \Gate::authorize('view', 'sponsors');
         $Sponsor = Sponsor::get();
         return SponsorResource::collection($Sponsor);
     }
@@ -39,6 +40,7 @@ class SponsorController extends Controller
      */
     public function store(Request $request)
     {
+        \Gate::authorize('edit', 'sponsors');
         $Sponsor = Sponsor::create($request->only('user_by'));
 
         return response($Sponsor, Response::HTTP_CREATED);
@@ -52,6 +54,7 @@ class SponsorController extends Controller
      */
     public function show($id)
     {
+        \Gate::authorize('view', 'sponsors');
         return new SponsorResource(Sponsor::find($id));
     }
 
@@ -75,6 +78,7 @@ class SponsorController extends Controller
      */
     public function update(Request $request, $id)
     {
+        \Gate::authorize('edit', 'sponsors');
         $Sponsor = Sponsor::find($id);
         $Sponsor->update($request->only('user_by','sponsor_name_eng','sponsor_name_arab','sponsor_address','sponsor_telphone_no','contact_person_eng','contact_person_arab','sponsor_no'));
 
@@ -89,6 +93,7 @@ class SponsorController extends Controller
      */
     public function destroy($id)
     {
+        \Gate::authorize('delete', 'sponsors');
         $Sponsor = Sponsor::destroy($id);
 
         return response($Sponsor, Response::HTTP_ACCEPTED);

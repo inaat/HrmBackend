@@ -19,10 +19,7 @@ class CityResource extends JsonResource
             'country_id'=>$this->country_id,
             'city_name_eng'=>$this->city_name_eng,
             'city_name_arab'=>$this->city_name_arab,
-            'update_status'=>$this->update_status,
-           // 'user_id'=>$this->user_id,
             'region'=>$this->region,
-            'is_capital'=>$this->is_captial,
             'ticket_value'=>$this->ticket_value,
             
         ];

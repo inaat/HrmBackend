@@ -16,6 +16,7 @@ class DeductionController extends Controller
      */
     public function index()
     {
+        \Gate::authorize('view', 'deductions');
         $Deduction = Deduction::get();
         return DeductionResource::collection($Deduction);
     }
@@ -38,6 +39,7 @@ class DeductionController extends Controller
      */
     public function store(Request $request)
     {
+        \Gate::authorize('edit', 'deductions');
         $Deduction= Deduction::create($request->only('user_by','deduction_desc_eng','deduction_desc_arab','printable','parent_deduction','modify_flag','gl_id','credit_gl_id','show_in_report','request','mb' ));
 
         return response($Deduction, Response::HTTP_CREATED);
@@ -51,6 +53,7 @@ class DeductionController extends Controller
      */
     public function show($id)
     {
+        \Gate::authorize('view', 'deductions');
         return new DeductionResource(Deduction::find($id));
     }
 
@@ -74,6 +77,7 @@ class DeductionController extends Controller
      */
     public function update(Request $request, $id)
     {
+        \Gate::authorize('edit', 'deductions');
         $Deduction= Deduction::find($id);
         $Deduction->update($request->only('user_by','deduction_desc_eng','deduction_desc_arab','printable','parent_deduction','modify_flag','gl_id','credit_gl_id','show_in_report','request','mb' ));
 
@@ -88,6 +92,7 @@ class DeductionController extends Controller
      */
     public function destroy($id)
     {
+        \Gate::authorize('delete', 'deductions');
         $Deduction = Deduction::destroy($id);
 
         return response($Deduction, Response::HTTP_ACCEPTED);

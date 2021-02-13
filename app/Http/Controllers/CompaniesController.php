@@ -1,13 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Http\Request;
-use App\Http\Resources\Gosi_SubscriptionResource ;
-use App\Http\Requests\Gosi_SubscriptionCreateRequest;
-use Symfony\Component\HttpFoundation\Response;
-use App\GosiSubscription;
 
-class GosiSubscriptionController extends Controller
+use Illuminate\Http\Request;
+
+class CompaniesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +13,7 @@ class GosiSubscriptionController extends Controller
      */
     public function index()
     {
-        \Gate::authorize('view', 'gosi_subscriptions');
-        $Gosi = GosiSubscription::get();
-        return Gosi_SubscriptionResource ::collection($Gosi);
+        //
     }
 
     /**
@@ -39,10 +34,7 @@ class GosiSubscriptionController extends Controller
      */
     public function store(Request $request)
     {
-        \Gate::authorize('edit', 'gosi_subscriptions');
-        $Gosi = GosiSubscription::create($request->only('user_by','yearmonth_id_gr','yearmonth_id_hi','gosi_saudi_employee','gosi_saudi_company','gosi_nonsaudi_employee','gosi_nonesaudi_company','current_flag','comments'));
-
-        return response($Gosi, Response::HTTP_CREATED);
+        //
     }
 
     /**
@@ -53,8 +45,7 @@ class GosiSubscriptionController extends Controller
      */
     public function show($id)
     {
-        \Gate::authorize('view', 'gosi_subscriptions');
-        return new Gosi_SubscriptionResource(GosiSubscription::find($id));
+        //
     }
 
     /**
@@ -77,11 +68,7 @@ class GosiSubscriptionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        \Gate::authorize('edit', 'gosi_subscriptions');
-        $Gosi = GosiSubscription::find($id);
-        $Gosi->update($request->only('user_by','yearmonth_id_gr','yearmonth_id_hi','gosi_saudi_employee','gosi_saudi_company','gosi_nonsaudi_employee','gosi_nonesaudi_company','current_flag','comments'));
-
-        return response($Gosi, Response::HTTP_ACCEPTED);
+        //
     }
 
     /**
@@ -92,9 +79,6 @@ class GosiSubscriptionController extends Controller
      */
     public function destroy($id)
     {
-        \Gate::authorize('delete', 'gosi_subscriptions');
-        $Gosi = GosiSubscription::destroy($id);
-
-        return response($Gosi, Response::HTTP_ACCEPTED);
+        //
     }
 }
