@@ -21,7 +21,10 @@ class CreatePercentagesTable extends Migration
             $table->string('percent_desc_eng')->nullable();
             $table->string('percent_desc_arab')->nullable();
             $table->integer('percent_value')->nullable();
-
+            $table->integer('branch_id')->unsigned();
+            $table->integer('company_id')->unsigned();
+            $table->foreign('branch_id')->references('id')->on('branches')->onDelete('cascade');
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
             $table->foreign('user_by')->references('id')->on('users')->onDelete('cascade');
           
             $table->timestamps();

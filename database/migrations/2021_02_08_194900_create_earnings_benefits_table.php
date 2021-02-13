@@ -32,8 +32,10 @@ class CreateEarningsBenefitsTable extends Migration
             $table->integer('parcent_frsalary')->nullable();
             $table->string('mb')->nullable();
 
-            // $table->string('branch_id');
-            // $table->string('company_id');
+            $table->integer('branch_id')->unsigned();
+            $table->integer('company_id')->unsigned();
+            $table->foreign('branch_id')->references('id')->on('branches')->onDelete('cascade');
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
 
             $table->foreign('user_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

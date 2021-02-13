@@ -15,10 +15,12 @@ class CreateCountriesTable extends Migration
     {
         Schema::create('countries', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_by')->unsigned();
             $table->string('country_name_arab')->nullable();
             $table->string('nationality_arab')->nullable();
             $table->string('country_name_eng')->nullable();
             $table->string('nationality_eng')->nullable();
+            $table->foreign('user_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

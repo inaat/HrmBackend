@@ -25,8 +25,10 @@ class CreateGosiSubscriptionsTable extends Migration
             $table->string('current_flag')->nullable();
             $table->string('comments')->nullable();
             
-            // $table->string('company_id');
-            // $table->string('branch_id');
+            $table->integer('branch_id')->unsigned();
+            $table->integer('company_id')->unsigned();
+            $table->foreign('branch_id')->references('id')->on('branches')->onDelete('cascade');
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
 
             $table->timestamps();
         });

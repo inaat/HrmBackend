@@ -19,12 +19,15 @@ class CreateDocumentTypesTable extends Migration
             $table->integer('user_by')->unsigned();
             $table->string('document_desc_eng')->nullable();
             $table->string('document_desc_arab')->nullable();
-            $table->string('co_flog')->nullable();
-            // $table->string('branch_id');
-            // $table->string('company_id');
+            $table->string('co_flag')->nullable();
             $table->string('hijriflag')->nullable();
             $table->string('substitution')->nullable();
             $table->date('days_to_expire')->nullable();
+            $table->integer('branch_id')->unsigned();
+            $table->integer('company_id')->unsigned();
+            $table->foreign('branch_id')->references('id')->on('branches')->onDelete('cascade');
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
+            $table->foreign('user_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -16,17 +16,17 @@ class CreateCitiesTable extends Migration
         Schema::create('cities', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('country_id')->unsigned();
-            $table->integer('user_id')->unsigned();
+            $table->integer('company_id')->unsigned();
+            $table->integer('user_by')->unsigned();
             $table->string('city_name_eng')->nullable();
             $table->string('city_name_arab')->nullable();
             $table->string('region')->nullable();
-            //$table->string('company_id');
-            //$table->string('branch_id')->nullable();
             $table->boolean('is_capital')->default(TRUE);
             $table->decimal('ticket_value')->nullable();
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('user_by')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
             
             $table->timestamps();
         });

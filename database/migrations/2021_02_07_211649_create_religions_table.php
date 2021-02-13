@@ -16,10 +16,10 @@ class CreateReligionsTable extends Migration
         Schema::create('religions', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_by')->unsigned();
+            $table->integer('company_id')->unsigned();
             $table->string('religion_name_eng')->nullable();
             $table->string('religion_name_arab')->nullable();
-            //$table->string('company_id')->nullable();
-            //$table->string('branch_id')->nullable();
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
             $table->foreign('user_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });

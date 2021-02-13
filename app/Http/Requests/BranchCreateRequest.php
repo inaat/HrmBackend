@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CurrencyCreateReques extends FormRequest
+class BranchCreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,7 @@ class CurrencyCreateReques extends FormRequest
     public function rules()
     {
         return [
-            'user_by'=>'required',
-            // 'currency_name_eng'=>'required',
-            // 'currency_name_arab'=>'required',
-            // 'exchange_rate'=>'required',
+            'id' => 'required',
         ];
     }
 }

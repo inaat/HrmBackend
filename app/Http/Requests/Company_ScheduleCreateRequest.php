@@ -13,8 +13,9 @@ class Company_ScheduleCreateRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
+    
 
     /**
      * Get the validation rules that apply to the request.

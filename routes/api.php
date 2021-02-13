@@ -45,6 +45,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::apiResource('permissions', 'PermissionController')->only('index');
 
     Route::apiResource('companies', 'CompaniesController');
+    Route::apiResource('branches', 'BranchController');
     Route::apiResource('country', 'CountryController');
     Route::apiResource('city','CityController');
     Route::apiResource('religion','ReligionController');

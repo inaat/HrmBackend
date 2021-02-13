@@ -16,13 +16,14 @@ class CreateEvaluationCompetenciesTable extends Migration
         Schema::create('evaluation_competencies', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_by')->unsigned();
+            $table->integer('company_id')->unsigned();
+            $table->integer('branch_id')->unsigned();
             $table->string('evaluation_desc_eng');
             $table->string('evaluation_desc_arab')->nullable();
             $table->string('evaluation_cycle')->nullable();
-            //$table->string('company_id')->nullable();
-            //$table->string('branch_id')->nullable();
             $table->integer('max_mark')->nullable();
-
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
+            $table->foreign('branch_id')->references('id')->on('branches')->onDelete('cascade');
             $table->foreign('user_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
