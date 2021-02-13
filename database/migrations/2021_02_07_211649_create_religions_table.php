@@ -18,7 +18,6 @@ class CreateReligionsTable extends Migration
             $table->integer('user_by')->unsigned();
             $table->string('religion_name_eng')->nullable();
             $table->string('religion_name_arab')->nullable();
-           
             //$table->string('company_id')->nullable();
             //$table->string('branch_id')->nullable();
             $table->foreign('user_by')->references('id')->on('users')->onDelete('cascade');
