@@ -1,10 +1,13 @@
 <?php
 
+
 namespace App\Http\Controllers;
-use App\CompetenciesEvaluation;
 use Illuminate\Http\Request;
+use App\CompetenciesEvaluation;
+
 use App\Http\Resources\Evaluation_competenceResource;
 use Symfony\Component\HttpFoundation\Response;
+use App\Http\Requests\Evaluation_CopmetenceCreateRequest;
 
 
 class Evaluation_competenceController extends Controller

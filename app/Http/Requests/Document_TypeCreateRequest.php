@@ -28,7 +28,7 @@ class Document_TypeCreateRequest extends FormRequest
             // 'renew_flag'=>'required',
             // 'document_desc_eng'=>'required',
             // 'document_desc_arab'=>'required',
-            // 'co_flog'=>'required',
+            // 'co_flag'=>'required',
            'user_by'=>'required',
             // 'hijriflag'=>'required',
             // 'substitution'=>'required',

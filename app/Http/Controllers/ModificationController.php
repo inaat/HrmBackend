@@ -1,14 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\DocumentType;
-use App\Http\Resources\Document_TypeResouce;
-use App\Http\Requests\Document_TypeCreateRequest;
 use Illuminate\Http\Request;
-use Ramsey\Uuid\Exception\DceSecurityException;
+use App\Modification;
+use App\Http\Resources\ModificationResource;
 use Symfony\Component\HttpFoundation\Response;
+use App\Http\Requests\ModificationCreateRequest;
 
-class DocumentTypeController extends Controller
+
+class ModificationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +17,9 @@ class DocumentTypeController extends Controller
      */
     public function index()
     {
-        \Gate::authorize('view', 'document_types');
-        $Document= DocumentType::get();
-        return Document_TypeResouce::collection($Document);
+        \Gate::authorize('view', 'modifications');
+        $Modification = Modification::get();
+       return ModificationResource::collection($Modification);
     }
 
     /**
@@ -40,10 +40,11 @@ class DocumentTypeController extends Controller
      */
     public function store(Request $request)
     {
-        \Gate::authorize('edit', 'document_types');
-        $City= DocumentType::create($request->only('renew_flag','user_by','document_desc_eng','document_desc_arab','co_flag','hijriflag','substituation','days_to_expire' ));
+        \Gate::authorize('edit', 'modifications');
+        $Modification = Modification::create($request->only('user_by','company_id','branch_id','modification_desc_eng','modification_desc_arab','flag'));
 
-        return response($City, Response::HTTP_CREATED);
+        return response($Modification, Response::HTTP_CREATED);
+   
     }
 
     /**
@@ -54,8 +55,9 @@ class DocumentTypeController extends Controller
      */
     public function show($id)
     {
-        \Gate::authorize('view', 'document_types');
-        return new Document_TypeResouce(DocumentType::find($id));
+        \Gate::authorize('view', 'modifications');
+        return new ModificationResource(Modification::find($id));
+   
     }
 
     /**
@@ -78,11 +80,12 @@ class DocumentTypeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        \Gate::authorize('edit', 'document_types');
-        $Education= DocumentType::find($id);
-        $Education->update($request->only('renew_flag','user_by','document_desc_eng','document_desc_arab','co_flag','hijriflag','substituation','days_to_expire' ));
+        \Gate::authorize('edit', 'modifications');
+        $Modification = Modification::find($id);
+        $Modification->update($request->only('user_by','company_id','branch_id','modification_desc_eng','modification_desc_arab','flag'));
 
-        return response($Education, Response::HTTP_ACCEPTED);
+        return response($Modification, Response::HTTP_ACCEPTED);
+  
     }
 
     /**
@@ -93,9 +96,10 @@ class DocumentTypeController extends Controller
      */
     public function destroy($id)
     {
-        \Gate::authorize('delete', 'document_types');
-        $Education=DocumentType::destroy($id);
+        \Gate::authorize('delete', 'modifications');
+        $Modification=Modification::destroy($id);
 
-        return response($Education, Response::HTTP_ACCEPTED);
+        return response($Modification, Response::HTTP_ACCEPTED);
+   
     }
 }
