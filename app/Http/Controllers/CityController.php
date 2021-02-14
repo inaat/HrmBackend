@@ -5,6 +5,7 @@ use App\Http\Resources\CityResource;
 use App\Http\Requests\CityCreateRequest;
 use Illuminate\Http\Request;
 use App\City;
+use App\Country;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -12,8 +13,8 @@ class CityController extends Controller
 {
     public function index()
     {
-        \Gate::authorize('view', 'cities');
-        $Cities= city::get();
+         \Gate::authorize('view', 'cities');
+        $Cities= city::with(['country'])->get();
         return CityResource::collection($Cities);
     }
 
@@ -31,6 +32,16 @@ class CityController extends Controller
         return response($City, Response::HTTP_CREATED);
     }
 
+ /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        $countries=Country::countrydropdown();
+         return response($countries, Response::HTTP_ACCEPTED);
+    }
     public function update(Request $request, $id)
     {
         \Gate::authorize('edit', 'cities');

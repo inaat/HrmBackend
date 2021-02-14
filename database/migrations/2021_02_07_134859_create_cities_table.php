@@ -23,11 +23,10 @@ class CreateCitiesTable extends Migration
             $table->string('region')->nullable();
             $table->boolean('is_capital')->default(TRUE);
             $table->decimal('ticket_value')->nullable();
-
             $table->foreign('user_by')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
             $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
-            
+
             $table->timestamps();
         });
     }
