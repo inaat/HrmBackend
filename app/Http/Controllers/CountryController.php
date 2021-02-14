@@ -66,7 +66,9 @@ class CountryController extends Controller
     public function store(CountryCreateRequest $request)
     {
         \Gate::authorize('edit', 'countries');
-        $Country = Country::create($request->only('country_name_arab', 'nationality_arab', 'country_name_eng', 'nationality_eng'));
+        $input=$request->only('country_name_arab', 'nationality_arab', 'country_name_eng', 'nationality_eng');
+        $input['user_by']=auth('api')->user()->id;
+        $Country = Country::create($input);
         return response($Country, Response::HTTP_CREATED);
     }
 

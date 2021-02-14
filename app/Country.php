@@ -48,6 +48,6 @@ class Country extends Model
         $countries =Country::select('id','country_name_eng','country_name_arab')->get();
         return $countries;
     }
- 
+
 
 }
