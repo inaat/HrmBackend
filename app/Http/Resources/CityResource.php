@@ -14,14 +14,18 @@ class CityResource extends JsonResource
      */
     public function toArray($request)
     {
+
         return [
             'id' => $this->id,
             'country_id'=>$this->country_id,
+            'is_capital'=>$this->is_capital,
+            'country_name_eng'=> $this->country->country_name_eng,
             'city_name_eng'=>$this->city_name_eng,
             'city_name_arab'=>$this->city_name_arab,
+            'country_name_arab'=> $this->country->country_name_arab,
             'region'=>$this->region,
             'ticket_value'=>$this->ticket_value,
-            
+
         ];
     }
 }

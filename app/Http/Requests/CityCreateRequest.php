@@ -25,14 +25,13 @@ class CityCreateRequest extends FormRequest
     {
         return [
             'country_id'=>'required',
-            // 'city_name_eng'=>'required',
-            // 'city_name_arab'=>'required',
-            // 'user_id'=>'required',
-            // 'region'=>'required',
-            // 'ticket_value'=>'required',
-            
-            
-            
+            'city_name_eng'=>'required',
+            'city_name_arab'=>'required',
+            'region'=>'required',
+            'ticket_value'=>'required',
+
+
+
         ];
     }
 }
