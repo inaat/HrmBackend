@@ -27,8 +27,10 @@ class CityController extends Controller
     public function store( Request $request)
     {
         \Gate::authorize('edit', 'cities');
-        $City= City::create($request->only('country_id','city_name_eng','city_name_arab','user_id','region','is_capital','ticket_value'));
-
+         $input=$request->only('country_id','city_name_eng','city_name_arab','region','is_capital','ticket_value');
+        $input['user_by']=auth('api')->user()->id;
+        $input['company_id']=1;
+        $City= City::create($input);
         return response($City, Response::HTTP_CREATED);
     }
 
