@@ -27,9 +27,35 @@ class CityController extends Controller
     public function store( Request $request)
     {
         \Gate::authorize('edit', 'cities');
-        $City= City::create($request->only('country_id','city_name_eng','city_name_arab','user_id','region','is_capital','ticket_value'));
+        
+        if($request->is_capital)
+        {
+            
+            $City = City::where([['country_id',$request->country_id],['is_capital',$request->is_capital ]])->first();
+                
+                if (empty($City))  {
 
-        return response($City, Response::HTTP_CREATED);
+                    $City= City::create($request->only('company_id','country_id','city_name_eng','city_name_arab','user_by','region','is_capital','ticket_value'));
+                    return response($City, Response::HTTP_ACCEPTED);
+                } 
+                
+                else {
+
+                    return response()->json([
+                    'success' => false,
+                    'message' => "This Country Capital Already Present !"]);
+                    
+                }
+          
+        }
+       
+        else
+        {
+               $City= City::create($request->only('company_id','country_id','city_name_eng','city_name_arab','user_by','region','is_capital','ticket_value'));
+            return response($City, Response::HTTP_ACCEPTED); 
+        }
+       
+      
     }
 
  /**
@@ -47,8 +73,8 @@ class CityController extends Controller
         \Gate::authorize('edit', 'cities');
 
         $City = City::find($id);
-        $City->update($request->only('country_id','city_name_eng','city_name_arab','user_id','region','is_capital','ticket_value'));
-
+        $City->update($request->only('country_id','city_name_eng','city_name_arab','user_by','region','is_capital','ticket_value'));
+        
         return response($City, Response::HTTP_ACCEPTED);
     }
 
