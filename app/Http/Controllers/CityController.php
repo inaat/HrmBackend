@@ -27,6 +27,7 @@ class CityController extends Controller
     public function store( Request $request)
     {
         \Gate::authorize('edit', 'cities');
+
         
         if($request->is_capital)
         {
@@ -55,7 +56,7 @@ class CityController extends Controller
             return response($City, Response::HTTP_ACCEPTED); 
         }
        
-      
+   
     }
 
  /**
