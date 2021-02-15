@@ -1,14 +1,16 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\DocumentType;
-use App\Http\Resources\Document_TypeResouce;
-use App\Http\Requests\Document_TypeCreateRequest;
-use Illuminate\Http\Request;
-use Ramsey\Uuid\Exception\DceSecurityException;
-use Symfony\Component\HttpFoundation\Response;
 
-class DocumentTypeController extends Controller
+use App\Costcenter;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Str;
+use App\Http\Requests\CostCenterCreateRequest;
+use App\Http\Resources\CostCenterResource;
+use App\Country;
+
+class CostCenterController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +19,9 @@ class DocumentTypeController extends Controller
      */
     public function index()
     {
-        \Gate::authorize('view', 'document_types');
-        $Document= DocumentType::get();
-        return Document_TypeResouce::collection($Document);
+        \Gate::authorize('view', 'costcenters');
+        $Costcenter= Costcenter::get();
+        return CostCenterResource::collection($Costcenter);
     }
 
     /**
@@ -40,10 +42,9 @@ class DocumentTypeController extends Controller
      */
     public function store(Request $request)
     {
-        \Gate::authorize('edit', 'document_types');
-        $City= DocumentType::create($request->only('renew_flag','user_by','document_desc_eng','document_desc_arab','co_flag','hijriflag','substituation','days_to_expire' ));
-
-        return response($City, Response::HTTP_CREATED);
+        \Gate::authorize('edit', 'costcenters');
+        $Costcenter = Costcenter::create($request->only('company_id','branch_id','user_by','costcenter_name_eng','costcenter_name_arab','costcenter_status','store_cc'));
+        return response($Costcenter, Response::HTTP_CREATED);
     }
 
     /**
@@ -54,8 +55,8 @@ class DocumentTypeController extends Controller
      */
     public function show($id)
     {
-        \Gate::authorize('view', 'document_types');
-        return new Document_TypeResouce(DocumentType::find($id));
+        \Gate::authorize('view', 'costcenters');
+        return new CostCenterResource(Costcenter::find($id));
     }
 
     /**
@@ -78,11 +79,10 @@ class DocumentTypeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        \Gate::authorize('edit', 'document_types');
-        $Education= DocumentType::find($id);
-        $Education->update($request->only('renew_flag','user_by','document_desc_eng','document_desc_arab','co_flag','hijriflag','substituation','days_to_expire' ));
-
-        return response($Education, Response::HTTP_ACCEPTED);
+        \Gate::authorize('edit', 'costcenters');
+        $Costcenter = Costcenter::find($id);
+        $Costcenter->update($request->only('company_id','brnach_id','user_by','costcenter_name_eng','costcenter_name_arab','costcenter_status','store_cc'));
+        return response($Costcenter, Response::HTTP_ACCEPTED);
     }
 
     /**
@@ -93,9 +93,9 @@ class DocumentTypeController extends Controller
      */
     public function destroy($id)
     {
-        \Gate::authorize('delete', 'document_types');
-        $Education=DocumentType::destroy($id);
+        \Gate::authorize('delete', 'costcenters');
+        $Costcenter=Costcenter::destroy($id);
 
-        return response($Education, Response::HTTP_ACCEPTED);
+        return response($Costcenter, Response::HTTP_ACCEPTED);
     }
 }

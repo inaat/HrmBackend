@@ -52,5 +52,8 @@ Route::apiResource('city','CityController');
     Route::apiResource('evaluationtype','EvaluationTypeController');
     Route::apiResource('companyschedule','CompanyScheduleController');
     Route::apiResource('gosisubscription','GosiSubscriptionController');
+    Route::apiResource('costcenter','CostCenterController');
+    Route::apiResource('modification','ModificationController');
+    Route::apiResource('sessions','SessionsController');
 });
 

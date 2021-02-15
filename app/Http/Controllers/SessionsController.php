@@ -1,14 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\DocumentType;
-use App\Http\Resources\Document_TypeResouce;
-use App\Http\Requests\Document_TypeCreateRequest;
 use Illuminate\Http\Request;
-use Ramsey\Uuid\Exception\DceSecurityException;
+use App\Session;
+use App\Http\Resources\SessionsResource;
 use Symfony\Component\HttpFoundation\Response;
+use App\Http\Requests\SessionCreateRequest;
 
-class DocumentTypeController extends Controller
+class SessionsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +16,10 @@ class DocumentTypeController extends Controller
      */
     public function index()
     {
-        \Gate::authorize('view', 'document_types');
-        $Document= DocumentType::get();
-        return Document_TypeResouce::collection($Document);
+        \Gate::authorize('view', 'sessions');
+        $Session = Session::get();
+       return SessionsResource::collection($Session);
+   
     }
 
     /**
@@ -40,10 +40,11 @@ class DocumentTypeController extends Controller
      */
     public function store(Request $request)
     {
-        \Gate::authorize('edit', 'document_types');
-        $City= DocumentType::create($request->only('renew_flag','user_by','document_desc_eng','document_desc_arab','co_flag','hijriflag','substituation','days_to_expire' ));
+        \Gate::authorize('edit', 'sessions');
+        $Session = Session::create($request->only('company_id','user_by','cosched_id','sched_name_eng','sched_name_arab','start_time','end_time'));
 
-        return response($City, Response::HTTP_CREATED);
+        return response($Session, Response::HTTP_CREATED);
+  
     }
 
     /**
@@ -54,8 +55,9 @@ class DocumentTypeController extends Controller
      */
     public function show($id)
     {
-        \Gate::authorize('view', 'document_types');
-        return new Document_TypeResouce(DocumentType::find($id));
+        \Gate::authorize('view', 'sessions');
+        return new SessionsResource(Session::find($id));
+   
     }
 
     /**
@@ -66,7 +68,8 @@ class DocumentTypeController extends Controller
      */
     public function edit($id)
     {
-        //
+        
+       
     }
 
     /**
@@ -78,11 +81,12 @@ class DocumentTypeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        \Gate::authorize('edit', 'document_types');
-        $Education= DocumentType::find($id);
-        $Education->update($request->only('renew_flag','user_by','document_desc_eng','document_desc_arab','co_flag','hijriflag','substituation','days_to_expire' ));
+        \Gate::authorize('edit', 'sessions');
+        $Session = Session::find($id);
+        $Session->update($request->only('company_id','user_by','cosched_id','sched_name_eng','sched_name_arab','start_time','end_time','late_minutes','early_minute','check_in','check_out','overtime','flex_time','hpd','day_off','ignore_aw','absent_factor','in_begin','in_end','out_begin','out_end','extra_mins_overtime','no_log_penality','monthly_grace_period','no_late','no_absert','no_ot'));
 
-        return response($Education, Response::HTTP_ACCEPTED);
+        return response($Session, Response::HTTP_ACCEPTED);
+  
     }
 
     /**
@@ -93,9 +97,10 @@ class DocumentTypeController extends Controller
      */
     public function destroy($id)
     {
-        \Gate::authorize('delete', 'document_types');
-        $Education=DocumentType::destroy($id);
+        \Gate::authorize('delete', 'session');
+        $Session=Session::destroy($id);
 
-        return response($Education, Response::HTTP_ACCEPTED);
+        return response($Session, Response::HTTP_ACCEPTED);
+   
     }
 }

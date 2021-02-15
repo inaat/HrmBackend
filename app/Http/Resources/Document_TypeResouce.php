@@ -19,7 +19,7 @@ class Document_TypeResouce extends JsonResource
             'renew_flag'=>$this->renew_flag,
             'document_desc_eng'=>$this->document_desc_eng,
             'document_desc_arab'=>$this->document_desc_arab,
-            'co_flog'=>$this->co_flog,
+            'co_flag'=>$this->co_flag,
            'user_by'=>$this->user_by,
             'hijriflag'=>$this->hijriflag,
             'substitution'=>$this->substitution,
