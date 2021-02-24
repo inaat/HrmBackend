@@ -19,7 +19,6 @@ class SectionResource extends JsonResource
             'user_by'=>$this->user_by,
             'section_desc_eng'=>$this->section_desc_eng,
             'section_desc_arab'=>$this->section_desc_arab,
-            'exchange_rate'=>$this->exchange_rate,
 
         ];
     }

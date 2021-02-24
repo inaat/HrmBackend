@@ -41,7 +41,12 @@ class SectionController extends Controller
     public function store(Request $request)
     {
         \Gate::authorize('edit', 'sections');
-        $Section = Section::create($request->only('user_by','section_desc_eng','section_desc_arab','exchange_rate'));
+
+        $input=$request->only('section_desc_eng','section_desc_arab');
+        $input['user_by']=auth('api')->user()->id;
+        $input['company_id']=1;
+        $input['branch_id']=1;
+        $Section = Section::create($input);
 
         return response($Section, Response::HTTP_CREATED);
     }

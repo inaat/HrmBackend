@@ -40,7 +40,7 @@ Route::apiResource('city','CityController');
     Route::apiResource('evaluation_competence','Evaluation_competenceController');
     Route::apiResource('educationtrainingtype','Education_Training_TypeController');
     Route::apiResource('documenttype','DocumentTypeController');
-    Route::apiResource('beneficianytype','BeneficianyTypeController');
+    Route::apiResource('beneficiarytype','BeneficiaryTypeController');
     Route::apiResource('leavevacationtype','LeaveVacationTypeController');
     Route::apiResource('positiondesignation','PositionDesisgnationController');
     Route::apiResource('sponsor','SponsorController');

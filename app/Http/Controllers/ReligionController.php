@@ -17,18 +17,21 @@ class ReligionController extends Controller
         $Religion= Religion::get();
         return ReligionResource::collection($Religion);
     }
-   
+
     public function show($id)
     {
         \Gate::authorize('view', 'religions');
         return new ReligionResource(Religion::find($id));
     }
-     
+
     public function store( Request $request)
     {
         \Gate::authorize('edit', 'religions');
-        $Religion= Religion::create($request->only('user_by','religion_name_eng','religion_name_arab'));
+          $input=$request->only('user_by','religion_name_eng','religion_name_arab');
+        $input['user_by']=auth('api')->user()->id;
+        $input['company_id']=1;
 
+         $Religion= Religion::create($input);
         return response($Religion, Response::HTTP_CREATED);
     }
 
@@ -41,7 +44,7 @@ class ReligionController extends Controller
 
         return response($Religion, Response::HTTP_ACCEPTED);
     }
-    
+
     public function destroy($id)
     {
         \Gate::authorize('delete', 'religions');

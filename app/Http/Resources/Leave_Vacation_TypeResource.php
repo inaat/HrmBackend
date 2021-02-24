@@ -22,12 +22,12 @@ class Leave_Vacation_TypeResource extends JsonResource
             'leave_desc_arab'=>$this->leave_desc_arab,
            'leave_duration'=>$this->leave_duration,
             'require_visa'=>$this->require_visa,
-            'with_pay'=>$this->with_pay, 
-            'operator'=>$this->operator,   
-            'setlement'=>$this->setlement,   
-            'extra_leave_calc'=>$this->extra_leave_calc,   
-            'request'=>$this->request,   
-            
+            'with_pay'=>$this->with_pay,
+            'operator'=>$this->operator,
+            'settlement'=>$this->settlement,
+            'extra_leave_calc'=>$this->extra_leave_calc,
+            'request'=>$this->request,
+
         ];
     }
 }

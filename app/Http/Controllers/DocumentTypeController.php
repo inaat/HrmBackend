@@ -41,9 +41,11 @@ class DocumentTypeController extends Controller
     public function store(Request $request)
     {
         \Gate::authorize('edit', 'document_types');
-        $City= DocumentType::create($request->only('renew_flag','user_by','document_desc_eng','document_desc_arab','co_flag','hijriflag','substituation','days_to_expire' ));
-
-        return response($City, Response::HTTP_CREATED);
+        $input=$request->only('renew_flag','is_company','document_desc_eng','document_desc_arab','hijriflag','substitution','days_to_expire');
+        $input['user_by']=auth('api')->user()->id;
+        $input['branch_id']=1;
+         $DocumentType= DocumentType::create($input);
+        return response($DocumentType, Response::HTTP_CREATED);
     }
 
     /**
@@ -80,7 +82,7 @@ class DocumentTypeController extends Controller
     {
         \Gate::authorize('edit', 'document_types');
         $Education= DocumentType::find($id);
-        $Education->update($request->only('renew_flag','user_by','document_desc_eng','document_desc_arab','co_flag','hijriflag','substituation','days_to_expire' ));
+        $Education->update($request->only('renew_flag','is_company','document_desc_eng','document_desc_arab','hijriflag','substitution','days_to_expire' ));
 
         return response($Education, Response::HTTP_ACCEPTED);
     }

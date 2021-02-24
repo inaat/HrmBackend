@@ -19,7 +19,7 @@ class SessionsController extends Controller
         \Gate::authorize('view', 'sessions');
         $Session = Session::get();
        return SessionsResource::collection($Session);
-   
+
     }
 
     /**
@@ -40,11 +40,15 @@ class SessionsController extends Controller
      */
     public function store(Request $request)
     {
-        \Gate::authorize('edit', 'sessions');
-        $Session = Session::create($request->only('company_id','user_by','cosched_id','sched_name_eng','sched_name_arab','start_time','end_time'));
+        // \Gate::authorize('edit', 'sessions');
+           $input=$request->only('cosched_id','sched_name_eng','sched_name_arab','start_time','end_time','late_minutes','early_minute','check_in','check_out','overtime','flex_time','hpd','day_off','ignore_aw','absent_factor','in_begin','in_end','out_begin','out_end','extra_mins_overtime','no_log_penality','monthly_grace_period','no_late','no_absert','no_ot');
+        $input['user_by']=auth('api')->user()->id;
+        $input['branch_id']=1;
+        $input['company_id']=1;
+        $Session = Session::create($input);
 
         return response($Session, Response::HTTP_CREATED);
-  
+
     }
 
     /**
@@ -57,7 +61,7 @@ class SessionsController extends Controller
     {
         \Gate::authorize('view', 'sessions');
         return new SessionsResource(Session::find($id));
-   
+
     }
 
     /**
@@ -68,8 +72,8 @@ class SessionsController extends Controller
      */
     public function edit($id)
     {
-        
-       
+
+
     }
 
     /**
@@ -83,10 +87,14 @@ class SessionsController extends Controller
     {
         \Gate::authorize('edit', 'sessions');
         $Session = Session::find($id);
-        $Session->update($request->only('company_id','user_by','cosched_id','sched_name_eng','sched_name_arab','start_time','end_time','late_minutes','early_minute','check_in','check_out','overtime','flex_time','hpd','day_off','ignore_aw','absent_factor','in_begin','in_end','out_begin','out_end','extra_mins_overtime','no_log_penality','monthly_grace_period','no_late','no_absert','no_ot'));
+        $input=$request->only('cosched_id','sched_name_eng','sched_name_arab','start_time','end_time','late_minutes','early_minute','check_in','check_out','overtime','flex_time','hpd','day_off','ignore_aw','absent_factor','in_begin','in_end','out_begin','out_end','extra_mins_overtime','no_log_penality','monthly_grace_period','no_late','no_absert','no_ot');
+        // $input['user_by']=auth('api')->user()->id;
+        // $input['branch_id']=1;
+        // $input['company_id']=1;
+        $Session->update($input);
 
         return response($Session, Response::HTTP_ACCEPTED);
-  
+
     }
 
     /**
@@ -101,6 +109,6 @@ class SessionsController extends Controller
         $Session=Session::destroy($id);
 
         return response($Session, Response::HTTP_ACCEPTED);
-   
+
     }
 }

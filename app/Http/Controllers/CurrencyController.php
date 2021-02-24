@@ -16,7 +16,7 @@ class CurrencyController extends Controller
      */
     public function index()
     {
-        \Gate::authorize('view', 'currenies');
+        \Gate::authorize('view', 'currencies');
         $Currency = Currency::get();
         return CurrencyResource::collection($Currency);
     }
@@ -28,7 +28,7 @@ class CurrencyController extends Controller
      */
     public function create()
     {
-       
+
     }
 
     /**
@@ -39,8 +39,12 @@ class CurrencyController extends Controller
      */
     public function store(Request $request)
     {
-        \Gate::authorize('edit', 'currenies');
-        $Currency = Currency::create($request->only('user_by','currency_name_eng','currency_name_arab','exchange_rate'));
+        \Gate::authorize('edit', 'currencies');
+        $input=$request->only('currency_name_eng','currency_name_arab','exchange_rate');
+        $input['user_by']=auth('api')->user()->id;
+        $input['branch_id']=1;
+        $input['company_id']=1;
+        $Currency = Currency::create($input);
 
         return response($Currency, Response::HTTP_CREATED);
     }
@@ -53,7 +57,7 @@ class CurrencyController extends Controller
      */
     public function show($id)
     {
-        \Gate::authorize('view', 'currenies');
+        \Gate::authorize('view', 'currencies');
         return new CurrencyResource(Currency::find($id));
     }
 
@@ -77,7 +81,7 @@ class CurrencyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        \Gate::authorize('edit', 'currenies');
+        \Gate::authorize('edit', 'currencies');
         $Currency= Currency::find($id);
         $Currency->update($request->only('user_by','currency_name_eng','currency_name_arab','exchange_rate'));
 
@@ -92,7 +96,7 @@ class CurrencyController extends Controller
      */
     public function destroy($id)
     {
-        \Gate::authorize('delete', 'currenies');
+        \Gate::authorize('delete', 'currencies');
         $Currency = Currency::destroy($id);
 
         return response($Currency, Response::HTTP_ACCEPTED);

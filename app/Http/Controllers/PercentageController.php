@@ -40,7 +40,11 @@ class PercentageController extends Controller
     public function store(Request $request)
     {
         \Gate::authorize('edit', 'percentages');
-        $Percentage = Percentage::create($request->only('user_by','percent_fr','percent_to','percent_desc_eng','percent_desc_arab','percent_value'));
+        $input=$request->only('percent_fr','percent_to','percent_desc_eng','percent_desc_arab','percent_value');
+         $input['user_by']=auth('api')->user()->id;
+        $input['branch_id']=1;
+        $input['company_id']=1;
+        $Percentage = Percentage::create($input);
 
         return response($Percentage , Response::HTTP_CREATED);
     }

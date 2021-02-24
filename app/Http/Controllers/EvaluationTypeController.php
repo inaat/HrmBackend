@@ -41,7 +41,11 @@ class EvaluationTypeController extends Controller
     public function store(Request $request)
     {
         \Gate::authorize('edit', 'evaluation_types');
-        $Evaluation = EvaluationType::create($request->only('user_by','evaluation_type_desc_eng','evaluation_type_desc_arab'));
+        $input=$request->only('evaluation_type_desc_eng','evaluation_type_desc_arab');
+        $input['user_by']=auth('api')->user()->id;
+        $input['branch_id']=1;
+        $input['company_id']=1;
+        $Evaluation = EvaluationType::create($input);
 
         return response($Evaluation, Response::HTTP_CREATED);
     }

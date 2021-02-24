@@ -20,7 +20,7 @@ class Education_Training_TypeController extends Controller
         \Gate::authorize('view', 'education_training_types');
         $Education = EducationTrainingType::get();
         return Education_Training_TypeResource::collection($Education);
-       
+
     }
 
     /**
@@ -42,7 +42,12 @@ class Education_Training_TypeController extends Controller
     public function store(Request $request)
     {
         \Gate::authorize('edit', 'education_training_types');
-        $Education = EducationTrainingType::create($request->only('user_by','education_desc_eng','education_desc_arab','education_remark'));
+        $input=$request->only('education_desc_arab','education_desc_eng');
+        $input['user_by']=auth('api')->user()->id;
+        $input['company_id']=1;
+        $input['branch_id']=1;
+        $input['country_id']=28;
+        $Education = EducationTrainingType::create($input);
 
         return response($Education, Response::HTTP_CREATED);
     }

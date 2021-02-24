@@ -41,7 +41,11 @@ class LeaveVacationTypeController extends Controller
     public function store(Request $request)
     {
         \Gate::authorize('edit', 'leave_vacation_types');
-        $Leave= LeaveVacationType::create($request->only('user_by','status','leave_desc_eng','leave_desc_arab','leave_duration','require_visa','with_pay','operator','settlement','extra_leave_calc','request'));
+        $input=$request->only('status','leave_desc_eng','leave_desc_arab','leave_duration','require_visa','with_pay','settlement','extra_leave_calc','request');
+        $input['user_by']=auth('api')->user()->id;
+        $input['branch_id']=1;
+        $input['company_id']=1;
+        $Leave= LeaveVacationType::create($input);
 
         return response($Leave, Response::HTTP_CREATED);
     }
@@ -79,9 +83,9 @@ class LeaveVacationTypeController extends Controller
     public function update(Request $request, $id)
     {
         \Gate::authorize('edit', 'leave_vacation_types');
-       
+
         $Leave = LeaveVacationType::find($id);
-        $Leave->update($request->only('user_by'.'status','leave_desc_eng','leave_desc_arab','leave_duration','require_visa','with_pay','operator','settlement','extra_leave_calc','request'));
+        $Leave->update($request->only('status','leave_desc_eng','leave_desc_arab','leave_duration','require_visa','with_pay','settlement','extra_leave_calc','request'));
 
         return response($Leave, Response::HTTP_ACCEPTED);
     }

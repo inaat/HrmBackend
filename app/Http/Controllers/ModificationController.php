@@ -41,10 +41,15 @@ class ModificationController extends Controller
     public function store(Request $request)
     {
         \Gate::authorize('edit', 'modifications');
-        $Modification = Modification::create($request->only('user_by','company_id','branch_id','modification_desc_eng','modification_desc_arab','flag'));
+        $input=$request->only('modification_desc_eng','modification_desc_arab','flag');
+         $input['user_by']=auth('api')->user()->id;
+        $input['branch_id']=1;
+        $input['company_id']=1;
+        $input['branch_id']=1;
+        $Modification = Modification::create($input);
 
         return response($Modification, Response::HTTP_CREATED);
-   
+
     }
 
     /**
@@ -57,7 +62,7 @@ class ModificationController extends Controller
     {
         \Gate::authorize('view', 'modifications');
         return new ModificationResource(Modification::find($id));
-   
+
     }
 
     /**
@@ -85,7 +90,7 @@ class ModificationController extends Controller
         $Modification->update($request->only('user_by','company_id','branch_id','modification_desc_eng','modification_desc_arab','flag'));
 
         return response($Modification, Response::HTTP_ACCEPTED);
-  
+
     }
 
     /**
@@ -100,6 +105,6 @@ class ModificationController extends Controller
         $Modification=Modification::destroy($id);
 
         return response($Modification, Response::HTTP_ACCEPTED);
-   
+
     }
 }

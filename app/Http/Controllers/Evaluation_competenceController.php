@@ -3,7 +3,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
-use App\CompetenciesEvaluation;
+use App\EvaluationCompetency;
 
 use App\Http\Resources\Evaluation_competenceResource;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,8 +20,8 @@ class Evaluation_competenceController extends Controller
     public function index()
     {
         \Gate::authorize('view', 'competences_evaluations');
-        $Evaluation = CompetenciesEvaluation::get();
-       return Evaluation_competenceResource::collection($Evaluation);
+        $Evaluation = EvaluationCompetency::get();
+       return $Evaluation;
     }
 
     /**
@@ -43,7 +43,11 @@ class Evaluation_competenceController extends Controller
     public function store(Request $request)
     {
         \Gate::authorize('edit', 'competences_evaluations');
-        $Evaluation = CompetenciesEvaluation::create($request->only('user_by','evaluation_desc_eng','evaluation_desc_arab','evaluation_cycle','max_mark'));
+          $input=$request->only('evaluation_desc_eng','evaluation_desc_arab');
+        $input['user_by']=auth('api')->user()->id;
+        $input['company_id']=1;
+        $input['branch_id']=1;
+        $Evaluation = EvaluationCompetency::create($input);
 
         return response($Evaluation, Response::HTTP_CREATED);
     }
@@ -57,7 +61,7 @@ class Evaluation_competenceController extends Controller
     public function show($id)
     {
         \Gate::authorize('view', 'competences_evaluations');
-        return new Evaluation_competenceResource(CompetenciesEvaluation::find($id));
+        return new Evaluation_competenceResource(EvaluationCompetency::find($id));
     }
 
     /**
@@ -81,7 +85,7 @@ class Evaluation_competenceController extends Controller
     public function update(Request $request, $id)
     {
         \Gate::authorize('edit', 'competences_evaluations');
-        $Evaluation = CompetenciesEvaluation::find($id);
+        $Evaluation = EvaluationCompetency::find($id);
         $Evaluation->update($request->only('user_by','evaluation_desc_eng','evaluation_desc_arab','evaluation_cycle','max_mark'));
 
         return response($Evaluation, Response::HTTP_ACCEPTED);
@@ -96,7 +100,7 @@ class Evaluation_competenceController extends Controller
     public function destroy($id)
     {
         \Gate::authorize('delete', 'competences_evaluations');
-        $Evaluation=CompetenciesEvaluation::destroy($id);
+        $Evaluation=EvaluationCompetency::destroy($id);
 
         return response($Evaluation, Response::HTTP_ACCEPTED);
     }

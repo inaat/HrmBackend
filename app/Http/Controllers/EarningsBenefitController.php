@@ -40,7 +40,11 @@ class EarningsBenefitController extends Controller
     public function store(Request $request)
     {
         \Gate::authorize('edit', 'earning_benefits');
-        $Earn= EarningsBenefit::create($request->only('user_by','benefit_desc_eng','benefit_desc_arab','final_set_flag','money_value_flag','holiday_flag','printable','parentbenefit','modify_flag','gl_id','credit_gl_id','show_in_report','mulfactor','parcent_frsalary','mb' ));
+         $input=$request->only('benefit_desc_eng','benefit_desc_arab','final_set_flag','money_value_flag','holiday_flag','printable','parentbenefit','modify_flag','gl_id','credit_gl_id','show_in_report','mulfactor','parcent_frsalary','mb' );
+        $input['user_by']=auth('api')->user()->id;
+        $input['branch_id']=1;
+        $input['company_id']=1;
+        $Earn= EarningsBenefit::create($input);
 
         return response($Earn, Response::HTTP_CREATED);
     }

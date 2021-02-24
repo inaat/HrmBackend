@@ -21,7 +21,7 @@ class Evaluation_competenceResource extends JsonResource
             'evaluation_desc_arab'=>$this->evaluation_desc_arab,
             'evaluation_cycle'=>$this->evaluation_cycle,
             'max_mark'=>$this->max_mark
-  
+
         ];
     }
 }

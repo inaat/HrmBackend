@@ -15,18 +15,17 @@ class CreateDocumentTypesTable extends Migration
     {
         Schema::create('document_types', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('renew_flag')->nullable();
+            $table->boolean('renew_flag')->default(0);
             $table->integer('user_by')->unsigned();
             $table->string('document_desc_eng')->nullable();
             $table->string('document_desc_arab')->nullable();
-            $table->string('co_flag')->nullable();
-            $table->string('hijriflag')->nullable();
-            $table->string('substitution')->nullable();
-            $table->date('days_to_expire')->nullable();
+            $table->boolean('co_flag')->default(0);
+            $table->boolean('hijriflag')->default(0);
+            $table->boolean('substitution')->default(0);
+            $table->integer('days_to_expire')->default(0);
             $table->integer('branch_id')->unsigned();
-            $table->integer('company_id')->unsigned();
+            $table->boolean('is_company')->default(0);
             $table->foreign('branch_id')->references('id')->on('branches')->onDelete('cascade');
-            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
             $table->foreign('user_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });

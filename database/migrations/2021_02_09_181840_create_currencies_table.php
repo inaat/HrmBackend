@@ -19,8 +19,7 @@ class CreateCurrenciesTable extends Migration
 
             $table->string('currency_name_eng')->nullable();
             $table->string('currency_name_arab')->nullable();
-            $table->integer('exchange_rate')->nullable();
-               
+            $table->decimal('exchange_rate',22, 4)->default(0);
             $table->integer('branch_id')->unsigned();
             $table->integer('company_id')->unsigned();
             $table->foreign('branch_id')->references('id')->on('branches')->onDelete('cascade');

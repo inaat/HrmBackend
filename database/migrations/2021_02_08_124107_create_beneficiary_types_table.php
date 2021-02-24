@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBeneficianyTypesTable extends Migration
+class CreateBeneficiaryTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateBeneficianyTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('beneficiany_types', function (Blueprint $table) {
+        Schema::create('beneficiary_types', function (Blueprint $table) {
             $table->increments('id');
-            
+
             $table->integer('user_by')->unsigned();
-            $table->string('beneficiany_desc_eng')->nullable();
-            $table->string('beneficiany_desc_arab')->nullable();
+            $table->string('beneficiary_desc_eng')->nullable();
+            $table->string('beneficiary_desc_arab')->nullable();
             $table->integer('branch_id')->unsigned();
             $table->integer('company_id')->unsigned();
             $table->foreign('branch_id')->references('id')->on('branches')->onDelete('cascade');
@@ -35,6 +35,6 @@ class CreateBeneficianyTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('beneficiany_type');
+        Schema::dropIfExists('beneficiary_type');
     }
 }

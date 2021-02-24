@@ -18,16 +18,15 @@ class CreateDeductionsTable extends Migration
             $table->integer('user_by')->unsigned();
             $table->string('deduction_desc_eng')->nullable();
             $table->string('deduction_desc_arab')->nullable();
-            
-            $table->string('printable')->nullable();
-            $table->string('parent_deduction')->nullable();
-            $table->string('modify_flag')->nullable();
+
+            $table->boolean('printable')->default(0);
+            $table->boolean('parent_deduction')->default(0);
+            $table->boolean('modify_flag')->default(0);
             $table->string('gl_id')->nullable();
             $table->string('credit_gl_id')->nullable();
-            $table->string('show_in_report')->nullable();
-            $table->string('request')->nullable();
-            $table->string('mb')->nullable();
-
+            $table->boolean('show_in_report')->default(0);
+            $table->boolean('request')->default(0);
+            $table->boolean('mb')->default(0);
             $table->integer('branch_id')->unsigned();
             $table->integer('company_id')->unsigned();
             $table->foreign('branch_id')->references('id')->on('branches')->onDelete('cascade');

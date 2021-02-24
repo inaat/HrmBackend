@@ -43,7 +43,11 @@ class CostCenterController extends Controller
     public function store(Request $request)
     {
         \Gate::authorize('edit', 'costcenters');
-        $Costcenter = Costcenter::create($request->only('company_id','branch_id','user_by','costcenter_name_eng','costcenter_name_arab','costcenter_status','store_cc'));
+        $input=$request->only('costcenter_name_eng','costcenter_name_arab','costcenter_status','store_cc');
+         $input['user_by']=auth('api')->user()->id;
+        $input['branch_id']=1;
+        $input['company_id']=1;
+        $Costcenter = Costcenter::create($input);
         return response($Costcenter, Response::HTTP_CREATED);
     }
 

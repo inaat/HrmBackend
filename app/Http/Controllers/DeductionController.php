@@ -40,7 +40,12 @@ class DeductionController extends Controller
     public function store(Request $request)
     {
         \Gate::authorize('edit', 'deductions');
-        $Deduction= Deduction::create($request->only('user_by','deduction_desc_eng','deduction_desc_arab','printable','parent_deduction','modify_flag','gl_id','credit_gl_id','show_in_report','request','mb' ));
+
+        $input=$request->only('deduction_desc_eng','deduction_desc_arab','printable','parent_deduction','modify_flag','gl_id','credit_gl_id','show_in_report','request','mb' );
+        $input['user_by']=auth('api')->user()->id;
+        $input['branch_id']=1;
+        $input['company_id']=1;
+        $Deduction= Deduction::create($input);
 
         return response($Deduction, Response::HTTP_CREATED);
     }

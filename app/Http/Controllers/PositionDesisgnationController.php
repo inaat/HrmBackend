@@ -41,7 +41,11 @@ class PositionDesisgnationController extends Controller
     public function store(Request $request)
     {
         \Gate::authorize('edit', 'position_designations');
-        $Position= PositionDesignation::create($request->only('user_by','designation_desc_eng','designation_desc_arab','level'));
+            $input=$request->only('designation_desc_eng','designation_desc_arab');
+        $input['user_by']=auth('api')->user()->id;
+        $input['branch_id']=1;
+        $input['company_id']=1;
+        $Position= PositionDesignation::create($input);
 
         return response($Position, Response::HTTP_CREATED);
     }
@@ -84,7 +88,7 @@ class PositionDesisgnationController extends Controller
 
         return response($Position, Response::HTTP_ACCEPTED);
     }
-    
+
 
     /**
      * Remove the specified resource from storage.

@@ -41,7 +41,11 @@ class SponsorController extends Controller
     public function store(Request $request)
     {
         \Gate::authorize('edit', 'sponsors');
-        $Sponsor = Sponsor::create($request->only('user_by','sponsor_name_eng','sponsor_name_arab','sponsor_address','sponsor_telphone_no','contact_person_eng','contact_person_arab','sponsor_no'));
+        $input=$request->only('sponsor_name_eng','sponsor_name_arab','sponsor_address','sponsor_telphone_no','contact_person_eng','contact_person_arab','sponsor_no');
+        $input['user_by']=auth('api')->user()->id;
+        $input['branch_id']=1;
+        $input['company_id']=1;
+        $Sponsor = Sponsor::create($input);
 
         return response($Sponsor, Response::HTTP_CREATED);
     }

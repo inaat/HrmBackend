@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
-use App\Http\Resources\Beneficiany_TypeResource;
-use App\Http\Requests\Beneficiany_TypeCreateRequest;
+use App\Http\Resources\Beneficiary_TypeResource;
+use App\Http\Requests\Beneficiary_TypeCreateRequest;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Str;
-use App\BeneficianyType;
+use App\BeneficiaryType;
 
 
-class BeneficianyTypeController extends Controller
+class BeneficiaryTypeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,9 +18,9 @@ class BeneficianyTypeController extends Controller
      */
     public function index()
     {
-        \Gate::authorize('view', 'beneficiany_types');
-        $Beneficiany= BeneficianyType::get();
-        return Beneficiany_TypeResource::collection($Beneficiany);
+        \Gate::authorize('view', 'beneficiary_types');
+        $Beneficiary= BeneficiaryType::get();
+        return Beneficiary_TypeResource::collection($Beneficiary);
     }
 
     /**
@@ -41,10 +41,14 @@ class BeneficianyTypeController extends Controller
      */
     public function store(Request $request)
     {
-        \Gate::authorize('edit', 'beneficiany_types');
-        $Beneficiany= BeneficianyType::create($request->only('user_by','beneficiany_desc_eng','beneficiany_desc_arab'));
+        \Gate::authorize('edit', 'beneficiary_types');
+        $input=$request->only('beneficiary_desc_eng','beneficiary_desc_arab');
+        $input['user_by']=auth('api')->user()->id;
+        $input['branch_id']=1;
+        $input['company_id']=1;
+        $Beneficiary= BeneficiaryType::create($input);
 
-        return response($Beneficiany, Response::HTTP_CREATED);
+        return response($Beneficiary, Response::HTTP_CREATED);
     }
 
     /**
@@ -55,8 +59,8 @@ class BeneficianyTypeController extends Controller
      */
     public function show($id)
     {
-        \Gate::authorize('view', 'beneficiany_types');
-        return new Beneficiany_TypeResource(BeneficianyType::find($id));
+        \Gate::authorize('view', 'beneficiary_types');
+        return new Beneficiary_TypeResource(BeneficiaryType::find($id));
     }
 
     /**
@@ -79,11 +83,11 @@ class BeneficianyTypeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        \Gate::authorize('edit', 'beneficiany_types');
-        $Beneficiany = BeneficianyType::find($id);
-        $Beneficiany->update($request->only('user_by','beneficiany_desc_eng','beneficiany_desc_eng'));
+        \Gate::authorize('edit', 'beneficiary_types');
+        $Beneficiary = BeneficiaryType::find($id);
+        $Beneficiary->update($request->only('beneficiary_desc_eng','beneficiary_desc_arab'));
 
-        return response($Beneficiany, Response::HTTP_ACCEPTED);
+        return response($Beneficiary, Response::HTTP_ACCEPTED);
     }
 
     /**
@@ -94,9 +98,9 @@ class BeneficianyTypeController extends Controller
      */
     public function destroy($id)
     {
-        \Gate::authorize('delete', 'beneficiany_types');
-        $Beneficiany=BeneficianyType::destroy($id);
+        \Gate::authorize('delete', 'beneficiary_types');
+        $Beneficiary=BeneficiaryType::destroy($id);
 
-        return response($Beneficiany, Response::HTTP_ACCEPTED);
+        return response($Beneficiary, Response::HTTP_ACCEPTED);
     }
 }

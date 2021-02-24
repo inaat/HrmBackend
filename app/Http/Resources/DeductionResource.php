@@ -17,15 +17,15 @@ class DeductionResource extends JsonResource
         return [
             'id' => $this->id,
             'user_by'=>$this->user_by,
-            'deduction_desc_eng'=>$this->benefit_desc_eng,
-            'deduction_desc_arab'=>$this->benefit_desc_arab,
+            'deduction_desc_eng'=>$this->deduction_desc_eng,
+            'deduction_desc_arab'=>$this->deduction_desc_arab,
             'printable'=>$this->printable,
-            'parent_deduction'=>$this->parentbenefit,
+            'parent_deduction'=>$this->parent_deduction,
             'modify_flag'=>$this->modify_flag,
             'gl_id'=>$this->gl_id,
             'credit_gl_id'=>$this->credit_gl_id,
             'show_in_report'=>$this->show_in_report,
-            'request'=>$this->parcent_frsalary,
+            'request'=>$this->request,
             'mb'=>$this->mb,
         ];
     }

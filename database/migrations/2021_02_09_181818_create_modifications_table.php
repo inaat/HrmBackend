@@ -21,12 +21,11 @@ class CreateModificationsTable extends Migration
 
             $table->string('modification_desc_eng')->nullable();
             $table->string('modification_desc_arab')->nullable();
-            $table->string('flag')->nullable();
-           
+            $table->boolean('flag')->default(0);
             $table->foreign('branch_id')->references('id')->on('branches')->onDelete('cascade');
             $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
             $table->foreign('user_by')->references('id')->on('users')->onDelete('cascade');
-           
+
             $table->timestamps();
         });
     }

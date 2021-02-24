@@ -18,8 +18,7 @@ class CreateSectionsTable extends Migration
             $table->integer('user_by')->unsigned();
             $table->string('section_desc_eng')->nullable();
             $table->string('section_desc_arab')->nullable();
-            $table->integer('exchange_rate')->nullable();
-            // $table->string('depart_id')->nullable();
+            $table->string('depart_id')->nullable();
             $table->integer('branch_id')->unsigned();
             $table->integer('company_id')->unsigned();
             $table->foreign('branch_id')->references('id')->on('branches')->onDelete('cascade');
